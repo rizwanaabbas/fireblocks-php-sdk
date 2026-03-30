@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Fireblocks\Sdk;
 
 use Illuminate\Support\ServiceProvider;
@@ -21,7 +19,6 @@ class FireblocksServiceProvider extends ServiceProvider
 
         $this->app->singleton(FireblocksClient::class, function ($app) {
             $config = $app['config']['fireblocks'];
-            
             return new FireblocksClient($config);
         });
 
@@ -45,9 +42,9 @@ class FireblocksServiceProvider extends ServiceProvider
     /**
      * Get the services provided by the provider.
      *
-     * @return array<string>
+     * @return array
      */
-    public function provides(): array
+    public function provides()
     {
         return [
             FireblocksClient::class,

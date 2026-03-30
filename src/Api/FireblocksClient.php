@@ -10,7 +10,6 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;
-use Illuminate\Support\Facades\Log;
 use Fireblocks\Sdk\Exceptions\AuthenticationException;
 use Fireblocks\Sdk\Exceptions\FireblocksException;
 use Fireblocks\Sdk\Exceptions\NotFoundException;
@@ -25,7 +24,6 @@ class FireblocksClient
     private string $apiSecret;
     private array $config;
     
-    // API endpoint handlers
     private ?Vaults $vaults = null;
     private ?Wallets $wallets = null;
     private ?Transactions $transactions = null;
@@ -58,9 +56,6 @@ class FireblocksClient
         $this->initializeHttpClient();
     }
 
-    /**
-     * Load API secret from config or file.
-     */
     private function loadApiSecret(): string
     {
         if (!empty($this->config['api_secret'])) {
@@ -74,9 +69,6 @@ class FireblocksClient
         return '';
     }
 
-    /**
-     * Validate configuration.
-     */
     private function validateConfig(): void
     {
         if (empty($this->apiKey)) {
@@ -88,19 +80,14 @@ class FireblocksClient
         }
     }
 
-    /**
-     * Initialize HTTP client with middleware.
-     */
     private function initializeHttpClient(): void
     {
         $stack = HandlerStack::create();
 
-        // Add retry middleware
         if ($this->config['max_retries'] > 0) {
             $stack->push($this->createRetryMiddleware());
         }
 
-        // Add auth middleware
         $stack->push($this->createAuthMiddleware());
 
         $options = [
@@ -125,41 +112,31 @@ class FireblocksClient
         $this->httpClient = new Client($options);
     }
 
-    /**
-     * Create retry middleware.
-     */
     private function createRetryMiddleware(): callable
     {
         return Middleware::retry(
             function ($retries, $request, $response, $exception) {
-                // Don't retry if we've hit the limit
                 if ($retries >= $this->config['max_retries']) {
                     return false;
                 }
 
-                // Retry on connection errors
                 if ($exception instanceof RequestException && $exception->getCode() === 0) {
                     return true;
                 }
 
-                // Retry on specific HTTP status codes
                 if ($response) {
                     $statusCode = $response->getStatusCode();
-                    // Retry on 5xx errors, 429 (rate limit), and 408 (timeout)
                     return in_array($statusCode, [408, 429, 500, 502, 503, 504], true);
                 }
 
                 return false;
             },
             function ($retries) {
-                return $this->config['retry_delay'] * pow(2, $retries); // Exponential backoff
+                return $this->config['retry_delay'] * pow(2, $retries);
             }
         );
     }
 
-    /**
-     * Create authentication middleware for JWT.
-     */
     private function createAuthMiddleware(): callable
     {
         return function (callable $handler) {
@@ -174,9 +151,6 @@ class FireblocksClient
         };
     }
 
-    /**
-     * Generate JWT token for request.
-     */
     private function generateJwtToken(Request $request): string
     {
         $now = time();
@@ -186,7 +160,7 @@ class FireblocksClient
             'uri' => $request->getRequestTarget(),
             'nonce' => $nonce,
             'iat' => $now,
-            'exp' => $now + 60, // Token valid for 60 seconds
+            'exp' => $now + 60,
             'sub' => $this->apiKey,
             'bodyHash' => $this->hashBody((string) $request->getBody()),
         ];
@@ -194,9 +168,6 @@ class FireblocksClient
         return JWT::encode($payload, $this->apiSecret, 'RS256');
     }
 
-    /**
-     * Hash request body for JWT.
-     */
     private function hashBody(string $body): string
     {
         if (empty($body)) {
@@ -205,49 +176,31 @@ class FireblocksClient
         return hash('sha256', $body);
     }
 
-    /**
-     * Make GET request.
-     */
     public function get(string $path, array $params = []): array
     {
         return $this->request('GET', $path, ['query' => $params]);
     }
 
-    /**
-     * Make POST request.
-     */
     public function post(string $path, array $data = []): array
     {
         return $this->request('POST', $path, ['json' => $data]);
     }
 
-    /**
-     * Make PUT request.
-     */
     public function put(string $path, array $data = []): array
     {
         return $this->request('PUT', $path, ['json' => $data]);
     }
 
-    /**
-     * Make PATCH request.
-     */
     public function patch(string $path, array $data = []): array
     {
         return $this->request('PATCH', $path, ['json' => $data]);
     }
 
-    /**
-     * Make DELETE request.
-     */
     public function delete(string $path, array $params = []): array
     {
         return $this->request('DELETE', $path, ['query' => $params]);
     }
 
-    /**
-     * Make HTTP request.
-     */
     private function request(string $method, string $path, array $options = []): array
     {
         try {
@@ -270,9 +223,6 @@ class FireblocksClient
         }
     }
 
-    /**
-     * Handle request exception.
-     */
     private function handleRequestException(RequestException $e): void
     {
         $response = $e->getResponse();
@@ -294,68 +244,71 @@ class FireblocksClient
         $message = $data['message'] ?? $e->getMessage();
         $errorCode = $data['code'] ?? null;
 
-        match ($statusCode) {
-            401 => throw new AuthenticationException($message, $statusCode),
-            404 => throw new NotFoundException($message, $statusCode),
-            422 => throw new ValidationException($message, $data['errors'] ?? [], $statusCode),
-            429 => throw new RateLimitException(
-                $message,
-                $statusCode,
-                (int) $response->getHeaderLine('Retry-After') ?: null
-            ),
-            default => throw new FireblocksException($message, $statusCode, $errorCode, $data, $e),
-        };
+        switch ($statusCode) {
+            case 401:
+                throw new AuthenticationException($message, $statusCode);
+            case 404:
+                throw new NotFoundException($message, $statusCode);
+            case 422:
+                throw new ValidationException($message, $data['errors'] ?? [], $statusCode);
+            case 429:
+                throw new RateLimitException(
+                    $message,
+                    $statusCode,
+                    (int) $response->getHeaderLine('Retry-After') ?: null
+                );
+            default:
+                throw new FireblocksException($message, $statusCode, $errorCode, $data, $e);
+        }
     }
-
-    // ==================== API Endpoint Accessors ====================
 
     public function vaults(): Vaults
     {
-        return $this->vaults ??= new Vaults($this);
+        return $this->vaults ?? $this->vaults = new Vaults($this);
     }
 
     public function wallets(): Wallets
     {
-        return $this->wallets ??= new Wallets($this);
+        return $this->wallets ?? $this->wallets = new Wallets($this);
     }
 
     public function transactions(): Transactions
     {
-        return $this->transactions ??= new Transactions($this);
+        return $this->transactions ?? $this->transactions = new Transactions($this);
     }
 
     public function users(): Users
     {
-        return $this->users ??= new Users($this);
+        return $this->users ?? $this->users = new Users($this);
     }
 
     public function network(): Network
     {
-        return $this->network ??= new Network($this);
+        return $this->network ?? $this->network = new Network($this);
     }
 
     public function gasStations(): GasStations
     {
-        return $this->gasStations ??= new GasStations($this);
+        return $this->gasStations ?? $this->gasStations = new GasStations($this);
     }
 
     public function contracts(): Contracts
     {
-        return $this->contracts ??= new Contracts($this);
+        return $this->contracts ?? $this->contracts = new Contracts($this);
     }
 
     public function webhooks(): Webhooks
     {
-        return $this->webhooks ??= new Webhooks($this);
+        return $this->webhooks ?? $this->webhooks = new Webhooks($this);
     }
 
     public function exchangeAccounts(): ExchangeAccounts
     {
-        return $this->exchangeAccounts ??= new ExchangeAccounts($this);
+        return $this->exchangeAccounts ?? $this->exchangeAccounts = new ExchangeAccounts($this);
     }
 
     public function fiatAccounts(): FiatAccounts
     {
-        return $this->fiatAccounts ??= new FiatAccounts($this);
+        return $this->fiatAccounts ?? $this->fiatAccounts = new FiatAccounts($this);
     }
 }
