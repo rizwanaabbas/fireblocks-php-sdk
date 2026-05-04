@@ -20,7 +20,7 @@ class VaultAsset
     public ?string $pendingRefundCpu = null;
     public ?string $pendingRefundNetwork = null;
     public ?string $blockHash = null;
-    public ?int $blockHeight = null;
+    public ?string $blockHeight = null;
 
     public function __construct(array $data = [])
     {

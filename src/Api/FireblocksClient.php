@@ -242,7 +242,7 @@ class FireblocksClient
         $data = json_decode($body, true) ?? [];
         
         $message = $data['message'] ?? $e->getMessage();
-        $errorCode = $data['code'] ?? null;
+        $errorCode = isset($data['code']) ? (string) $data['code'] : null;
 
         switch ($statusCode) {
             case 401:

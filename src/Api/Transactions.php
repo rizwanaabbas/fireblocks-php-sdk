@@ -40,8 +40,8 @@ class Transactions
      */
     public function create(TransactionRequest $request): Transaction
     {
-        $response = $this->client->post('/v1/transactions', $request->toArray());
-        
+        $response = $this->client->post('/v1/transactions', $this->buildPayload($request));
+
         return new Transaction($response);
     }
 
@@ -114,7 +114,73 @@ class Transactions
      */
     public function estimateFee(TransactionRequest $request): array
     {
-        return $this->client->post('/v1/transactions/estimate_fee', $request->toArray());
+        return $this->client->post('/v1/transactions/estimate_fee', $this->buildPayload($request));
+    }
+
+    /**
+     * Build the correct Fireblocks API payload from a TransactionRequest.
+     */
+    private function buildPayload(TransactionRequest $request): array
+    {
+        $payload = [
+            'assetId' => $request->assetId,
+            'source' => [
+                'type' => $request->sourceType,
+                'id' => $request->sourceId,
+            ],
+            'destination' => [
+                'type' => $request->destinationType,
+            ],
+            'amount' => $request->amount,
+        ];
+
+        if ($request->sourceWalletId !== null) {
+            $payload['source']['walletId'] = $request->sourceWalletId;
+        }
+
+        if ($request->destinationType === 'ONE_TIME_ADDRESS') {
+            $payload['destination']['oneTimeAddress'] = [
+                'address' => $request->destinationAddress,
+            ];
+            if ($request->destinationTag !== null) {
+                $payload['destination']['oneTimeAddress']['tag'] = $request->destinationTag;
+            }
+        } else {
+            $payload['destination']['id'] = $request->destinationId;
+            if ($request->destinationWalletId !== null) {
+                $payload['destination']['walletId'] = $request->destinationWalletId;
+            }
+        }
+
+        if ($request->feeLevel !== null) {
+            $payload['feeLevel'] = $request->feeLevel;
+        }
+        if ($request->note !== null) {
+            $payload['note'] = $request->note;
+        }
+        if ($request->externalTxId !== null) {
+            $payload['externalTxId'] = $request->externalTxId;
+        }
+        if ($request->customerRefId !== null) {
+            $payload['customerRefId'] = $request->customerRefId;
+        }
+        if ($request->treatAsGrossAmount !== null) {
+            $payload['treatAsGrossAmount'] = $request->treatAsGrossAmount;
+        }
+        if ($request->failOnLowFee !== null) {
+            $payload['failOnLowFee'] = $request->failOnLowFee;
+        }
+        if ($request->forceSweep !== null) {
+            $payload['forceSweep'] = $request->forceSweep;
+        }
+        if ($request->replaceTxByHash !== null) {
+            $payload['replaceTxByHash'] = $request->replaceTxByHash;
+        }
+        if ($request->extraParameters !== null) {
+            $payload['extraParameters'] = $request->extraParameters;
+        }
+
+        return $payload;
     }
 
     /**

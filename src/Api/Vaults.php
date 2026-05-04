@@ -27,7 +27,7 @@ class Vaults
      */
     public function listAccounts(array $params = []): array
     {
-        $response = $this->client->get('/v1/vault/accounts', $params);
+        $response = $this->client->get('/v1/vault/accounts_paged', $params);
         
         return array_map(fn ($item) => new VaultAccount($item), $response['accounts'] ?? []);
     }
@@ -87,7 +87,15 @@ class Vaults
         
         return new VaultAsset($response);
     }
-
+     /**
+     * Get raw asset address response for a vault account asset.
+     */
+    public function getAssetAddress(string $vaultAccountId, string $assetId): array
+    {
+        $response = $this->client->get("/v1/vault/accounts/{$vaultAccountId}/{$assetId}/addresses");
+        return $response;
+    }
+    
     /**
      * Create a new vault asset.
      */
@@ -114,6 +122,8 @@ class Vaults
         
         return array_map(fn ($item) => new DepositAddress($item), $response['addresses'] ?? []);
     }
+
+   
 
     /**
      * Create a new deposit address.
