@@ -1,0 +1,61 @@
+{
+    "name": "fireblocks/fireblocks-php-sdk",
+    "description": "Fireblocks PHP Laravel SDK - Official PHP SDK for Fireblocks API",
+    "type": "library",
+    "keywords": ["fireblocks", "crypto", "wallet", "blockchain", "laravel", "bitcoin", "ethereum"],
+    "homepage": "https://github.com/fireblocks/php-sdk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fireblocks",
+            "email": "support@fireblocks.com",
+            "homepage": "https://www.fireblocks.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "guzzlehttp/guzzle": "^7.0",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
+        "illuminate/http": "^8.0|^9.0|^10.0|^11.0",
+        "firebase/php-jwt": "^6.0",
+        "ext-openssl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0|^10.0",
+        "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
+        "phpstan/phpstan": "^1.0",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fireblocks\\Sdk\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fireblocks\\Sdk\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "phpstan": "vendor/bin/phpstan analyse src --level=8 --memory-limit=512M",
+        "phpcs": "vendor/bin/phpcs src --standard=PSR12",
+        "phpcbf": "vendor/bin/phpcbf src --standard=PSR12"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fireblocks\\Sdk\\FireblocksServiceProvider"
+            ],
+            "aliases": {
+                "Fireblocks": "Fireblocks\\Sdk\\Facades\\Fireblocks"
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
+}
