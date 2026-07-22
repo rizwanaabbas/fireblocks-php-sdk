@@ -58,12 +58,12 @@ class FireblocksClient
 
     private function loadApiSecret(): string
     {
-        if (!empty($this->config['api_secret'])) {
-            return $this->config['api_secret'];
-        }
-
         if (!empty($this->config['api_secret_path']) && file_exists($this->config['api_secret_path'])) {
             return file_get_contents($this->config['api_secret_path']);
+        }
+        
+        if (!empty($this->config['api_secret'])) {
+            return $this->config['api_secret'];
         }
 
         return '';
