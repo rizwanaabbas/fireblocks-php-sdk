@@ -8,11 +8,14 @@ class Transaction
 {
     public string $id;
     public string $assetId;
-    public ?string $source = null;
-    public ?string $destination = null;
+    /** @var array<string, mixed>|null Transfer peer path response from Fireblocks API */
+    public ?array $source = null;
+    /** @var array<string, mixed>|null Transfer peer path response from Fireblocks API */
+    public ?array $destination = null;
     public ?string $requestedAmount = null;
     public ?string $amount = null;
-    public ?string $amountInfo = null;
+    /** @var array<string, mixed>|null */
+    public ?array $amountInfo = null;
     public ?string $fee = null;
     public ?string $feeCurrency = null;
     public ?string $networkFee = null;
@@ -40,33 +43,76 @@ class Transaction
     {
         $this->id = $data['id'] ?? '';
         $this->assetId = $data['assetId'] ?? '';
-        $this->source = $data['source'] ?? null;
-        $this->destination = $data['destination'] ?? null;
-        $this->requestedAmount = $data['requestedAmount'] ?? null;
-        $this->amount = $data['amount'] ?? null;
-        $this->amountInfo = $data['amountInfo'] ?? null;
-        $this->fee = $data['fee'] ?? null;
-        $this->feeCurrency = $data['feeCurrency'] ?? null;
-        $this->networkFee = $data['networkFee'] ?? null;
-        $this->netAmount = $data['netAmount'] ?? null;
-        $this->status = $data['status'] ?? null;
-        $this->subStatus = $data['subStatus'] ?? null;
-        $this->txHash = $data['txHash'] ?? null;
-        $this->numOfConfirmations = $data['numOfConfirmations'] ?? null;
-        $this->createdAt = $data['createdAt'] ?? null;
-        $this->lastUpdated = $data['lastUpdated'] ?? null;
-        $this->completedAt = $data['completedAt'] ?? null;
-        $this->destinationAddress = $data['destinationAddress'] ?? null;
-        $this->destinationAddressDescription = $data['destinationAddressDescription'] ?? null;
-        $this->destinationTag = $data['destinationTag'] ?? null;
-        $this->sourceAddress = $data['sourceAddress'] ?? null;
-        $this->destinationNetworkId = $data['destinationNetworkId'] ?? null;
-        $this->signedMessages = $data['signedMessages'] ?? null;
-        $this->extraParameters = $data['extraParameters'] ?? null;
-        $this->externalTxId = $data['externalTxId'] ?? null;
-        $this->operation = $data['operation'] ?? null;
-        $this->feePayerInfo = $data['feePayerInfo'] ?? null;
-        $this->note = $data['note'] ?? null;
+        $this->source = $this->normalizePeerPath($data['source'] ?? null);
+        $this->destination = $this->normalizePeerPath($data['destination'] ?? null);
+        $this->requestedAmount = $this->stringOrNull($data['requestedAmount'] ?? null);
+        $this->amount = $this->stringOrNull($data['amount'] ?? null);
+        $this->amountInfo = is_array($data['amountInfo'] ?? null) ? $data['amountInfo'] : null;
+        $this->fee = $this->stringOrNull($data['fee'] ?? null);
+        $this->feeCurrency = $this->stringOrNull($data['feeCurrency'] ?? null);
+        $this->networkFee = $this->stringOrNull($data['networkFee'] ?? null);
+        $this->netAmount = $this->stringOrNull($data['netAmount'] ?? null);
+        $this->status = $this->stringOrNull($data['status'] ?? null);
+        $this->subStatus = $this->stringOrNull($data['subStatus'] ?? null);
+        $this->txHash = $this->stringOrNull($data['txHash'] ?? null);
+        $this->numOfConfirmations = isset($data['numOfConfirmations']) ? (int) $data['numOfConfirmations'] : null;
+        $this->createdAt = $this->stringOrNull($data['createdAt'] ?? null);
+        $this->lastUpdated = $this->stringOrNull($data['lastUpdated'] ?? null);
+        $this->completedAt = $this->stringOrNull($data['completedAt'] ?? null);
+        $this->destinationAddress = $this->stringOrNull($data['destinationAddress'] ?? null);
+        $this->destinationAddressDescription = $this->stringOrNull($data['destinationAddressDescription'] ?? null);
+        $this->destinationTag = $this->stringOrNull($data['destinationTag'] ?? null);
+        $this->sourceAddress = $this->stringOrNull($data['sourceAddress'] ?? null);
+        $this->destinationNetworkId = $this->stringOrNull($data['destinationNetworkId'] ?? null);
+        $this->signedMessages = is_array($data['signedMessages'] ?? null) ? $data['signedMessages'] : null;
+        $this->extraParameters = is_array($data['extraParameters'] ?? null) ? $data['extraParameters'] : null;
+        $this->externalTxId = $this->stringOrNull($data['externalTxId'] ?? null);
+        $this->operation = $this->stringOrNull($data['operation'] ?? null);
+        $this->feePayerInfo = is_array($data['feePayerInfo'] ?? null) ? $data['feePayerInfo'] : null;
+        $this->note = $this->stringOrNull($data['note'] ?? null);
+    }
+
+    /**
+     * @param mixed $value
+     * @return array<string, mixed>|null
+     */
+    private function normalizePeerPath($value): ?array
+    {
+        if (is_array($value)) {
+            return $value;
+        }
+
+        if (is_string($value) && $value !== '') {
+            return ['id' => $value];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    private function stringOrNull($value): ?string
+    {
+        if ($value === null || $value === '') {
+            return null;
+        }
+
+        if (is_scalar($value)) {
+            return (string) $value;
+        }
+
+        return null;
+    }
+
+    public function sourceId(): ?string
+    {
+        return isset($this->source['id']) ? (string) $this->source['id'] : null;
+    }
+
+    public function destinationId(): ?string
+    {
+        return isset($this->destination['id']) ? (string) $this->destination['id'] : null;
     }
 
     /**
