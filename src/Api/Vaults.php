@@ -120,7 +120,7 @@ class Vaults
     {
         $response = $this->client->get("/v1/vault/accounts/{$vaultAccountId}/{$assetId}/addresses");
         
-        return array_map(fn ($item) => new DepositAddress($item), $response['addresses'] ?? []);
+        return array_map(fn ($item) => new DepositAddress($item), $response ?? []);
     }
 
    
