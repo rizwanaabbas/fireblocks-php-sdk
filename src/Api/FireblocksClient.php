@@ -15,6 +15,7 @@ use Fireblocks\Sdk\Exceptions\FireblocksException;
 use Fireblocks\Sdk\Exceptions\NotFoundException;
 use Fireblocks\Sdk\Exceptions\RateLimitException;
 use Fireblocks\Sdk\Exceptions\ValidationException;
+use Fireblocks\Sdk\Exceptions\WhitelistCredentialsNotConfiguredException;
 
 class FireblocksClient
 {
@@ -310,5 +311,36 @@ class FireblocksClient
     public function fiatAccounts(): FiatAccounts
     {
         return $this->fiatAccounts ?? $this->fiatAccounts = new FiatAccounts($this);
+    }
+
+    /**
+     * Return a new client using overridden API credentials (same base URL and transport settings).
+     */
+    public function withCredentials(array $overrides): self
+    {
+        return new self(array_merge($this->config, $overrides));
+    }
+
+    /**
+     * Client authenticated with whitelist / external-wallet API credentials from config.
+     *
+     * @throws WhitelistCredentialsNotConfiguredException
+     */
+    public function forWhitelistAddress(): self
+    {
+        $apiKey = trim((string) ($this->config['whitelist_api_key'] ?? ''));
+        $secretPath = trim((string) ($this->config['whitelist_api_secret_path'] ?? ''));
+
+        if ($apiKey === '' || $secretPath === '') {
+            throw new WhitelistCredentialsNotConfiguredException(
+                'Whitelist address API credentials are not configured.'
+            );
+        }
+
+        return $this->withCredentials([
+            'api_key' => $apiKey,
+            'api_secret_path' => $secretPath,
+            'api_secret' => '',
+        ]);
     }
 }
