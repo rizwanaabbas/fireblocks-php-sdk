@@ -31,7 +31,7 @@ class Transactions
     public function get(string $txId): Transaction
     {
         $response = $this->client->get("/v1/transactions/{$txId}");
-        
+
         return new Transaction($response);
     }
 
@@ -59,7 +59,7 @@ class Transactions
     public function getByExternalId(string $externalTxId): Transaction
     {
         $response = $this->client->get('/v1/transactions/external_tx_id/' . $externalTxId);
-        
+
         return new Transaction($response);
     }
 
@@ -72,9 +72,9 @@ class Transactions
         if ($reason !== null) {
             $data['reason'] = $reason;
         }
-        
+
         $response = $this->client->post("/v1/transactions/{$txId}/cancel", $data);
-        
+
         return new Transaction($response);
     }
 
@@ -87,9 +87,9 @@ class Transactions
         if ($requestedGasPrice !== null) {
             $data['requestedGasPrice'] = $requestedGasPrice;
         }
-        
+
         $response = $this->client->post("/v1/transactions/{$txId}/drop", $data);
-        
+
         return new Transaction($response);
     }
 

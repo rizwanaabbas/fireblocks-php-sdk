@@ -28,7 +28,7 @@ class Vaults
     public function listAccounts(array $params = []): array
     {
         $response = $this->client->get('/v1/vault/accounts_paged', $params);
-        
+
         return array_map(fn ($item) => new VaultAccount($item), $response['accounts'] ?? []);
     }
 
@@ -38,7 +38,7 @@ class Vaults
     public function getAccount(string $vaultAccountId): VaultAccount
     {
         $response = $this->client->get("/v1/vault/accounts/{$vaultAccountId}");
-        
+
         return new VaultAccount($response);
     }
 
@@ -48,7 +48,7 @@ class Vaults
     public function createAccount(CreateVaultAccountRequest $request): VaultAccount
     {
         $response = $this->client->post('/v1/vault/accounts', $request->toArray());
-        
+
         return new VaultAccount($response);
     }
 
@@ -58,7 +58,7 @@ class Vaults
     public function updateAccount(string $vaultAccountId, string $name): VaultAccount
     {
         $response = $this->client->put("/v1/vault/accounts/{$vaultAccountId}", ['name' => $name]);
-        
+
         return new VaultAccount($response);
     }
 
@@ -84,7 +84,7 @@ class Vaults
     public function getAsset(string $vaultAccountId, string $assetId): VaultAsset
     {
         $response = $this->client->get("/v1/vault/accounts/{$vaultAccountId}/{$assetId}");
-        
+
         return new VaultAsset($response);
     }
      /**
@@ -95,7 +95,7 @@ class Vaults
         $response = $this->client->get("/v1/vault/accounts/{$vaultAccountId}/{$assetId}/addresses");
         return $response;
     }
-    
+
     /**
      * Create a new vault asset.
      */
@@ -105,9 +105,9 @@ class Vaults
         if ($eosAccountName !== null) {
             $data['eosAccountName'] = $eosAccountName;
         }
-        
+
         $response = $this->client->post("/v1/vault/accounts/{$vaultAccountId}/{$assetId}", $data);
-        
+
         return new VaultAsset($response);
     }
 
@@ -119,11 +119,11 @@ class Vaults
     public function listDepositAddresses(string $vaultAccountId, string $assetId): array
     {
         $response = $this->client->get("/v1/vault/accounts/{$vaultAccountId}/{$assetId}/addresses");
-        
+
         return array_map(fn ($item) => new DepositAddress($item), $response ?? []);
     }
 
-   
+
 
     /**
      * Create a new deposit address.
@@ -137,9 +137,9 @@ class Vaults
         if ($customerRefId !== null) {
             $data['customerRefId'] = $customerRefId;
         }
-        
+
         $response = $this->client->post("/v1/vault/accounts/{$vaultAccountId}/{$assetId}/addresses", $data);
-        
+
         return new DepositAddress($response);
     }
 
@@ -149,7 +149,7 @@ class Vaults
     public function getMaxSpendableAmount(string $vaultAccountId, string $assetId): string
     {
         $response = $this->client->get("/v1/vault/accounts/{$vaultAccountId}/{$assetId}/max_spendable_amount");
-        
+
         return $response['maxSpendableAmount'] ?? '0';
     }
 
@@ -159,7 +159,7 @@ class Vaults
     public function getMaxBip44IndexUsed(string $vaultAccountId, string $assetId): int
     {
         $response = $this->client->get("/v1/vault/accounts/{$vaultAccountId}/{$assetId}/max_bip44_index_used");
-        
+
         return $response['maxBip44IndexUsed'] ?? 0;
     }
 
@@ -178,7 +178,7 @@ class Vaults
         if ($after !== null) {
             $params['after'] = $after;
         }
-        
+
         return $this->client->get("/v1/vault/accounts/{$vaultAccountId}/{$assetId}/addresses_paginated", $params);
     }
 
@@ -196,7 +196,7 @@ class Vaults
     public function refreshAssetBalance(string $vaultAccountId, string $assetId): VaultAsset
     {
         $response = $this->client->post("/v1/vault/accounts/{$vaultAccountId}/{$assetId}/balance");
-        
+
         return new VaultAsset($response);
     }
 }

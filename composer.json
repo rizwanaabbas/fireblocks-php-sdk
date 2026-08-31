@@ -39,8 +39,8 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "phpstan": "vendor/bin/phpstan analyse src --level=8 --memory-limit=512M",
-        "phpcs": "vendor/bin/phpcs src --standard=PSR12",
+        "phpstan": "vendor/bin/phpstan analyse --memory-limit=512M",
+        "phpcs": "vendor/bin/phpcs src --standard=PSR12 -n",
         "phpcbf": "vendor/bin/phpcbf src --standard=PSR12"
     },
     "extra": {

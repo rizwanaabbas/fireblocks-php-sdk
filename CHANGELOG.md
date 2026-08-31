@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.12] - 2026-08-31
+
+### Fixed
+- GitHub Actions CI: PSR-12 formatting (`phpcbf`), PHPUnit test directory config, PHPStan baseline + `never` return on exception handler
+
 ## [1.2.11] - 2026-08-31
 
 ### Added

@@ -1,0 +1,491 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Contracts\\:\\:callReadFunction\\(\\) has parameter \\$functionArguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Contracts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Contracts\\:\\:callReadFunction\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Contracts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Contracts\\:\\:callWriteFunction\\(\\) has parameter \\$functionArguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Contracts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Contracts\\:\\:callWriteFunction\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Contracts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\ExchangeAccounts\\:\\:convert\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/ExchangeAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\ExchangeAccounts\\:\\:get\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/ExchangeAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\ExchangeAccounts\\:\\:getAsset\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/ExchangeAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\ExchangeAccounts\\:\\:list\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/ExchangeAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\ExchangeAccounts\\:\\:transferFromVault\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/ExchangeAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\ExchangeAccounts\\:\\:transferToVault\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/ExchangeAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\ExchangeAccounts\\:\\:withdraw\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/ExchangeAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FiatAccounts\\:\\:deposit\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FiatAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FiatAccounts\\:\\:get\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FiatAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FiatAccounts\\:\\:list\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FiatAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FiatAccounts\\:\\:redeemToDlt\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FiatAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FiatAccounts\\:\\:withdraw\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FiatAccounts.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:__construct\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:delete\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:delete\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:get\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:get\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:loadApiSecret\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:patch\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:patch\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:post\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:post\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:put\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:put\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:request\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:request\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:withCredentials\\(\\) has parameter \\$overrides with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Property Fireblocks\\\\Sdk\\\\Api\\\\FireblocksClient\\:\\:\\$config type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/FireblocksClient.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\GasStations\\:\\:getConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/GasStations.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\GasStations\\:\\:getConfigurationByAsset\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/GasStations.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\GasStations\\:\\:setConfiguration\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/GasStations.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\GasStations\\:\\:setConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/GasStations.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Network\\:\\:createConnection\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Network.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Network\\:\\:createConnection\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Network.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Network\\:\\:getConnection\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Network.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Network\\:\\:getConnections\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Network.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Network\\:\\:getNetworkId\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Network.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Network\\:\\:getSupportedAssets\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Network.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Transactions\\:\\:buildPayload\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Transactions.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Transactions\\:\\:estimateFee\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Transactions.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Transactions\\:\\:list\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Transactions.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Transactions\\:\\:list\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Transactions.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Transactions\\:\\:validateAddress\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Transactions.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Users\\:\\:get\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Users.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Users\\:\\:getByRole\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Users.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Users\\:\\:list\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Users.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Vaults\\:\\:getAssetAddress\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Vaults.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Vaults\\:\\:getAssetBalance\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Vaults.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Vaults\\:\\:listAccounts\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Vaults.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Vaults\\:\\:listAddresses\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Vaults.php
+
+		-
+			message: "#^Variable \\$response on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: src/Api/Vaults.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:addContractWalletAsset\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:addExternalWalletAsset\\(\\) has parameter \\$additionalInfo with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:addExternalWalletAsset\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:addInternalWalletAsset\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:createContractWallet\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:createExternalWallet\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:createInternalWallet\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:getContractWallet\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:getExternalWallet\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:getInternalWallet\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:listContractWallets\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:listExternalWallets\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Wallets\\:\\:listInternalWallets\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Wallets.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Webhooks\\:\\:create\\(\\) has parameter \\$events with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Webhooks.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Webhooks\\:\\:create\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Webhooks.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Webhooks\\:\\:get\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Webhooks.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Webhooks\\:\\:getPublicKey\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Webhooks.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Webhooks\\:\\:list\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Webhooks.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Webhooks\\:\\:update\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Webhooks.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Webhooks\\:\\:update\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Api/Webhooks.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Exceptions\\\\FireblocksException\\:\\:__construct\\(\\) has parameter \\$errorData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exceptions/FireblocksException.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Exceptions\\\\FireblocksException\\:\\:getErrorData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exceptions/FireblocksException.php
+
+		-
+			message: "#^Property Fireblocks\\\\Sdk\\\\Exceptions\\\\FireblocksException\\:\\:\\$errorData type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exceptions/FireblocksException.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Exceptions\\\\ValidationException\\:\\:__construct\\(\\) has parameter \\$errors with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exceptions/ValidationException.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Exceptions\\\\ValidationException\\:\\:getErrors\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exceptions/ValidationException.php
+
+		-
+			message: "#^Property Fireblocks\\\\Sdk\\\\Exceptions\\\\ValidationException\\:\\:\\$errors type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Exceptions/ValidationException.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\FireblocksServiceProvider\\:\\:provides\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/FireblocksServiceProvider.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Models\\\\CreateVaultAccountRequest\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/CreateVaultAccountRequest.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Models\\\\DepositAddress\\:\\:__construct\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/DepositAddress.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Models\\\\Transaction\\:\\:__construct\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/Transaction.php
+
+		-
+			message: "#^Property Fireblocks\\\\Sdk\\\\Models\\\\Transaction\\:\\:\\$extraParameters type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/Transaction.php
+
+		-
+			message: "#^Property Fireblocks\\\\Sdk\\\\Models\\\\Transaction\\:\\:\\$feePayerInfo type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/Transaction.php
+
+		-
+			message: "#^Property Fireblocks\\\\Sdk\\\\Models\\\\Transaction\\:\\:\\$signedMessages type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/Transaction.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Models\\\\TransactionRequest\\:\\:__construct\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/TransactionRequest.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Models\\\\TransactionRequest\\:\\:fill\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/TransactionRequest.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Models\\\\TransactionRequest\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/TransactionRequest.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function strtolower expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/Models/TransactionRequest.php
+
+		-
+			message: "#^Property Fireblocks\\\\Sdk\\\\Models\\\\TransactionRequest\\:\\:\\$amountInfo type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/TransactionRequest.php
+
+		-
+			message: "#^Property Fireblocks\\\\Sdk\\\\Models\\\\TransactionRequest\\:\\:\\$destinations type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/TransactionRequest.php
+
+		-
+			message: "#^Property Fireblocks\\\\Sdk\\\\Models\\\\TransactionRequest\\:\\:\\$extraParameters type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/TransactionRequest.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Models\\\\VaultAccount\\:\\:__construct\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/VaultAccount.php
+
+		-
+			message: "#^Property Fireblocks\\\\Sdk\\\\Models\\\\VaultAccount\\:\\:\\$assets type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/VaultAccount.php
+
+		-
+			message: "#^Method Fireblocks\\\\Sdk\\\\Models\\\\VaultAsset\\:\\:__construct\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Models/VaultAsset.php

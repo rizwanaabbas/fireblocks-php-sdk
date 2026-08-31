@@ -24,7 +24,7 @@ class FireblocksClient
     private string $apiKey;
     private string $apiSecret;
     private array $config;
-    
+
     private ?Vaults $vaults = null;
     private ?Wallets $wallets = null;
     private ?Transactions $transactions = null;
@@ -62,7 +62,7 @@ class FireblocksClient
         if (!empty($this->config['api_secret_path']) && file_exists($this->config['api_secret_path'])) {
             return file_get_contents($this->config['api_secret_path']);
         }
-        
+
         if (!empty($this->config['api_secret'])) {
             return $this->config['api_secret'];
         }
@@ -143,7 +143,7 @@ class FireblocksClient
         return function (callable $handler) {
             return function (Request $request, array $options) use ($handler) {
                 $token = $this->generateJwtToken($request);
-                
+
                 $request = $request->withHeader('Authorization', "Bearer {$token}");
                 $request = $request->withHeader('X-API-Key', $this->apiKey);
 
@@ -156,7 +156,7 @@ class FireblocksClient
     {
         $now = time();
         $nonce = uniqid('', true);
-        
+
         $payload = [
             'uri' => $request->getRequestTarget(),
             'nonce' => $nonce,
@@ -207,13 +207,13 @@ class FireblocksClient
         try {
             $response = $this->httpClient->request($method, $path, $options);
             $body = (string) $response->getBody();
-            
+
             if (empty($body)) {
                 return [];
             }
 
             $data = json_decode($body, true);
-            
+
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new FireblocksException('Invalid JSON response: ' . json_last_error_msg());
             }
@@ -224,10 +224,10 @@ class FireblocksClient
         }
     }
 
-    private function handleRequestException(RequestException $e): void
+    private function handleRequestException(RequestException $e): never
     {
         $response = $e->getResponse();
-        
+
         if (!$response) {
             throw new FireblocksException(
                 'Network error: ' . $e->getMessage(),
@@ -241,7 +241,7 @@ class FireblocksClient
         $statusCode = $response->getStatusCode();
         $body = (string) $response->getBody();
         $data = json_decode($body, true) ?? [];
-        
+
         $message = $data['message'] ?? $e->getMessage();
         $errorCode = isset($data['code']) ? (string) $data['code'] : null;
 
