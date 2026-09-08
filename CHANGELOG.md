@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `Vaults::listAccountsPaged()` — cursor-paged vault scan via `GET /v1/vault/accounts_paged`
+- `Vaults::buildPagedQueryString()` / `previewPagedQuery()` — correct repeated `includeTagIds` query params for tagged CI vault discovery
+- `Vaults::attachOrDetachTags()` — attach/detach standard vault tags (`POST /v1/vault/accounts/attached_tags`)
+- `Vaults::getAssetAddress()` — raw deposit address response helper
+- `FireblocksClient::getPath()` — GET with pre-built path/query (used by paged vault APIs)
+- `CreateVaultAccountRequest` model for typed vault account creation
+
+### Changed
+- `Vaults::listAccounts()` now uses `listAccountsPaged()` internally (supports tag filters + cursor)
+- `Transactions::buildPayload()` — structured source/destination payload for estimate + create
+- API resource classes aligned with portal usage (wallets, webhooks, gas stations, network, users)
+
 ## [1.2.12] - 2026-08-31
 
 ### Fixed

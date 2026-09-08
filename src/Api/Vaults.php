@@ -27,9 +27,97 @@ class Vaults
      */
     public function listAccounts(array $params = []): array
     {
-        $response = $this->client->get('/v1/vault/accounts_paged', $params);
+        $response = $this->listAccountsPaged($params);
 
         return array_map(fn ($item) => new VaultAccount($item), $response['accounts'] ?? []);
+    }
+
+    /**
+     * Paginated vault accounts (raw response with paging cursor).
+     *
+     * @return array{accounts: array<int, array<string, mixed>>, paging?: array<string, mixed>}
+     */
+    public function listAccountsPaged(array $params = []): array
+    {
+        $query = self::buildPagedQueryString($params);
+        $path = '/v1/vault/accounts_paged' . ($query !== '' ? '?' . $query : '');
+        $response = $this->client->getPath($path);
+
+        return [
+            'accounts' => $response['accounts'] ?? [],
+            'paging' => $response['paging'] ?? [],
+            'previousUrl' => $response['previousUrl'] ?? null,
+            'nextUrl' => $response['nextUrl'] ?? null,
+            '_requestQuery' => $query,
+        ];
+    }
+
+    /**
+     * Attach or detach standard tags on one or more vault accounts.
+     *
+     * @param  array<int, string>  $vaultAccountIds
+     * @param  array<int, string>  $tagIdsToAttach
+     * @param  array<int, string>  $tagIdsToDetach
+     */
+    public function attachOrDetachTags(
+        array $vaultAccountIds,
+        array $tagIdsToAttach = [],
+        array $tagIdsToDetach = []
+    ): array {
+        $payload = ['vaultAccountIds' => array_values($vaultAccountIds)];
+
+        if ($tagIdsToAttach !== []) {
+            $payload['tagIdsToAttach'] = array_values($tagIdsToAttach);
+        }
+
+        if ($tagIdsToDetach !== []) {
+            $payload['tagIdsToDetach'] = array_values($tagIdsToDetach);
+        }
+
+        return $this->client->post('/v1/vault/accounts/attached_tags', $payload);
+    }
+
+    /**
+     * Build query string for accounts_paged.
+     *
+     * Fireblocks expects repeated keys (includeTagIds=uuid1&includeTagIds=uuid2).
+     * Guzzle/http_build_query produces includeTagIds[0]=uuid which the API ignores.
+     *
+     * @param  array<string, mixed>  $params
+     */
+    public static function buildPagedQueryString(array $params): string
+    {
+        $parts = [];
+
+        foreach ($params as $key => $value) {
+            if ($value === null || $value === '') {
+                continue;
+            }
+
+            if (in_array($key, ['includeTagIds', 'excludeTagIds', 'tagIds'], true)) {
+                $ids = is_array($value) ? $value : [$value];
+                foreach ($ids as $id) {
+                    $id = trim((string) $id);
+                    if ($id !== '') {
+                        $parts[] = rawurlencode($key) . '=' . rawurlencode($id);
+                    }
+                }
+
+                continue;
+            }
+
+            $parts[] = rawurlencode((string) $key) . '=' . rawurlencode((string) $value);
+        }
+
+        return implode('&', $parts);
+    }
+
+    /**
+     * Last built query string (for diagnostics in logs/tests).
+     */
+    public static function previewPagedQuery(array $params): string
+    {
+        return self::buildPagedQueryString($params);
     }
 
     /**

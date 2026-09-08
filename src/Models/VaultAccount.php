@@ -13,6 +13,8 @@ class VaultAccount
     public array $assets = [];
     public ?string $customerRefId = null;
     public ?bool $autoFuel = null;
+    /** @var array<int, array<string, mixed>> */
+    public array $tags = [];
 
     public function __construct(array $data = [])
     {
@@ -23,5 +25,6 @@ class VaultAccount
         $this->assets = $data['assets'] ?? [];
         $this->customerRefId = $data['customerRefId'] ?? null;
         $this->autoFuel = $data['autoFuel'] ?? null;
+        $this->tags = $data['tags'] ?? [];
     }
 }

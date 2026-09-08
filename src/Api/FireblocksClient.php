@@ -182,6 +182,14 @@ class FireblocksClient
         return $this->request('GET', $path, ['query' => $params]);
     }
 
+    /**
+     * GET request with query string already embedded in the path (for Fireblocks array params).
+     */
+    public function getPath(string $pathWithQuery): array
+    {
+        return $this->request('GET', $pathWithQuery);
+    }
+
     public function post(string $path, array $data = []): array
     {
         return $this->request('POST', $path, ['json' => $data]);
