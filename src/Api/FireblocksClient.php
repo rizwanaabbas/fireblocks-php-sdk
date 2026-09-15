@@ -252,8 +252,9 @@ class FireblocksClient
         $body = (string) $response->getBody();
         $data = json_decode($body, true) ?? [];
 
-        $message = $data['message'] ?? $e->getMessage();
-        $errorCode = isset($data['code']) ? (string) $data['code'] : null;
+        $fallback = $e->getMessage() !== '' ? $e->getMessage() : 'Fireblocks API error';
+        $message = $this->stringifyApiValue($data['message'] ?? $fallback, $fallback);
+        $errorCode = $this->stringifyErrorCode($data['code'] ?? null);
 
         switch ($statusCode) {
             case 401:
@@ -261,7 +262,7 @@ class FireblocksClient
             case 404:
                 throw new NotFoundException($message, $statusCode);
             case 422:
-                throw new ValidationException($message, $data['errors'] ?? [], $statusCode);
+                throw new ValidationException($message, is_array($data['errors'] ?? null) ? $data['errors'] : [], $statusCode);
             case 429:
                 throw new RateLimitException(
                     $message,
@@ -269,8 +270,52 @@ class FireblocksClient
                     (int) $response->getHeaderLine('Retry-After') ?: null
                 );
             default:
-                throw new FireblocksException($message, $statusCode, $errorCode, $data, $e);
+                throw new FireblocksException($message, $statusCode, $errorCode, is_array($data) ? $data : null, $e);
         }
+    }
+
+    /**
+     * Fireblocks sometimes returns `message` as an object/array. Exception constructors require string.
+     *
+     * @param mixed $value
+     */
+    private function stringifyApiValue($value, string $fallback): string
+    {
+        if (is_string($value)) {
+            return $value !== '' ? $value : $fallback;
+        }
+
+        if (is_array($value) || is_object($value)) {
+            $json = json_encode($value);
+
+            return ($json !== false && $json !== 'null') ? $json : $fallback;
+        }
+
+        if (is_scalar($value)) {
+            $cast = (string) $value;
+
+            return $cast !== '' ? $cast : $fallback;
+        }
+
+        return $fallback;
+    }
+
+    /**
+     * @param mixed $code
+     */
+    private function stringifyErrorCode($code): ?string
+    {
+        if ($code === null || $code === '') {
+            return null;
+        }
+
+        if (is_array($code) || is_object($code)) {
+            $json = json_encode($code);
+
+            return ($json !== false && $json !== 'null') ? $json : null;
+        }
+
+        return (string) $code;
     }
 
     public function vaults(): Vaults

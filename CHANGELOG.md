@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - PHPStan level 8: typed arrays on `getPath()`, vault paging, and tag attach methods; drop redundant `??` on paged `accounts`
+- Coerce Fireblocks API `message`/`code` arrays to strings before constructing exceptions (PHP 8 TypeError on attach-tag errors)
 
 ### Removed
 - Laravel-bootstrapped whitelist credential tests (not required for CI)
