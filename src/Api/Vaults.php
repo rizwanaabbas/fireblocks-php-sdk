@@ -287,4 +287,17 @@ class Vaults
 
         return new VaultAsset($response);
     }
+
+    /**
+     * Raw SDK call — attach a single tag to a single vault account.
+     * Maps to POST /v1/vault/accounts/attached_tags.
+     */
+    public function attachTagToVaultAccount(string $vaultAccountId, string $tagId): array
+    {
+        return $this->client->post('/v1/vault/accounts/attached_tags', [
+            'vaultAccountIds' => [$vaultAccountId],
+            'tagIdsToAttach'  => [$tagId],
+            'tagIdsToDetach'  => [],
+        ]);
+    }
 }
