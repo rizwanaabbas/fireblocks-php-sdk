@@ -184,6 +184,8 @@ class FireblocksClient
 
     /**
      * GET request with query string already embedded in the path (for Fireblocks array params).
+     *
+     * @return array<string, mixed>
      */
     public function getPath(string $pathWithQuery): array
     {

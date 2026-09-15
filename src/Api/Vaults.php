@@ -22,20 +22,27 @@ class Vaults
     /**
      * List all vault accounts.
      *
-     * @param array $params Query parameters (namePrefix, nameSuffix, minAmountThreshold, etc.)
+     * @param array<string, mixed> $params Query parameters (namePrefix, nameSuffix, minAmountThreshold, etc.)
      * @return array<VaultAccount>
      */
     public function listAccounts(array $params = []): array
     {
         $response = $this->listAccountsPaged($params);
 
-        return array_map(fn ($item) => new VaultAccount($item), $response['accounts'] ?? []);
+        return array_map(fn ($item) => new VaultAccount($item), $response['accounts']);
     }
 
     /**
      * Paginated vault accounts (raw response with paging cursor).
      *
-     * @return array{accounts: array<int, array<string, mixed>>, paging?: array<string, mixed>}
+     * @param  array<string, mixed>  $params
+     * @return array{
+     *     accounts: array<int, array<string, mixed>>,
+     *     paging: array<string, mixed>,
+     *     previousUrl: mixed,
+     *     nextUrl: mixed,
+     *     _requestQuery: string
+     * }
      */
     public function listAccountsPaged(array $params = []): array
     {
@@ -58,6 +65,7 @@ class Vaults
      * @param  array<int, string>  $vaultAccountIds
      * @param  array<int, string>  $tagIdsToAttach
      * @param  array<int, string>  $tagIdsToDetach
+     * @return array<string, mixed>
      */
     public function attachOrDetachTags(
         array $vaultAccountIds,
@@ -114,6 +122,8 @@ class Vaults
 
     /**
      * Last built query string (for diagnostics in logs/tests).
+     *
+     * @param  array<string, mixed>  $params
      */
     public static function previewPagedQuery(array $params): string
     {
@@ -175,8 +185,10 @@ class Vaults
 
         return new VaultAsset($response);
     }
-     /**
+    /**
      * Get raw asset address response for a vault account asset.
+     *
+     * @return array<string, mixed>
      */
     public function getAssetAddress(string $vaultAccountId, string $assetId): array
     {
@@ -291,13 +303,15 @@ class Vaults
     /**
      * Raw SDK call — attach a single tag to a single vault account.
      * Maps to POST /v1/vault/accounts/attached_tags.
+     *
+     * @return array<string, mixed>
      */
     public function attachTagToVaultAccount(string $vaultAccountId, string $tagId): array
     {
         return $this->client->post('/v1/vault/accounts/attached_tags', [
             'vaultAccountIds' => [$vaultAccountId],
-            'tagIdsToAttach'  => [$tagId],
-            'tagIdsToDetach'  => [],
+            'tagIdsToAttach' => [$tagId],
+            'tagIdsToDetach' => [],
         ]);
     }
 }

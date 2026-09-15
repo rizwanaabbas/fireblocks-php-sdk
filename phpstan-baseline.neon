@@ -251,17 +251,7 @@ parameters:
 			path: src/Api/Users.php
 
 		-
-			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Vaults\\:\\:getAssetAddress\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Api/Vaults.php
-
-		-
 			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Vaults\\:\\:getAssetBalance\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Api/Vaults.php
-
-		-
-			message: "#^Method Fireblocks\\\\Sdk\\\\Api\\\\Vaults\\:\\:listAccounts\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Api/Vaults.php
 
