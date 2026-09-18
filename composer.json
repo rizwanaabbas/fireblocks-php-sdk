@@ -3,7 +3,11 @@
     "description": "Fireblocks PHP Laravel SDK - Official PHP SDK for Fireblocks API",
     "type": "library",
     "keywords": ["fireblocks", "crypto", "wallet", "blockchain", "laravel", "bitcoin", "ethereum"],
-    "homepage": "https://github.com/fireblocks/php-sdk",
+    "homepage": "https://github.com/Credit-Investment-Bank/fireblocks-php-sdk",
+    "support": {
+        "issues": "https://github.com/Credit-Investment-Bank/fireblocks-php-sdk/issues",
+        "source": "https://github.com/Credit-Investment-Bank/fireblocks-php-sdk"
+    },
     "license": "MIT",
     "authors": [
         {

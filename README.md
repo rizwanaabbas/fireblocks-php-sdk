@@ -355,7 +355,7 @@ This SDK is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 - [Fireblocks Documentation](https://developers.fireblocks.com/)
 - [Fireblocks API Reference](https://docs.fireblocks.com/api/)
-- [GitHub Issues](https://github.com/fireblocks/php-sdk/issues)
+- [GitHub Issues](https://github.com/Credit-Investment-Bank/fireblocks-php-sdk/issues)
 
 ## Contributing
 
